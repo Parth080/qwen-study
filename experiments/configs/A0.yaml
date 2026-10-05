@@ -1,0 +1,38 @@
+# Track A baseline. Every Track A ablation is a one-line diff from this file.
+# Run naming: A-<axis>-<level>-s<seed>   e.g. A-rank-64-s1
+run_id: A0-s0
+track: A
+model: Qwen/Qwen3-0.6B         # promote to Qwen/Qwen3-8B once it works here
+start_point: instruct          # instruct | base
+quant_bits: 16                 # base model precision during training: 16 | 8 | 4
+method: lora                   # lora | dora | full (full only for 0.6B / 1.7B)
+lora:
+  rank: 8
+  alpha: 16
+  dropout: 0.0
+  targets: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+  num_layers: -1               # -1 = all layers
+optimizer: adamw               # adamw | adam | sgd | lion | adafactor | muon
+lr: 1.0e-4
+weight_decay: 0.01
+schedule: cosine               # constant | cosine | linear | wsd
+warmup_frac: 0.03
+epochs: 2
+batch_size: 4
+grad_accum: 4
+max_seq_len: 1024
+loss:
+  mask_prompt: true            # completion-only loss
+  label_smoothing: 0.0
+  packing: false
+data:
+  train: data/splits/train.jsonl
+  val: data/splits/val.jsonl
+  fraction: 1.0                # data-size ablation: 0.1 | 0.25 | 0.5 | 1.0
+  variant: cleaned             # cleaned | dirty
+  thinking: none               # none | rationale
+seed: 0
+eval:
+  test: data/splits/test.jsonl
+  decoding: greedy
+  max_new_tokens: 256

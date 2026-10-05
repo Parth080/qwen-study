@@ -1,0 +1,27 @@
+# ---- environment / caches ----
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+wandb/
+
+# ---- large artefacts: never commit ----
+models/*
+!models/README.md
+data/raw/
+data/cleaned/
+data/splits/*.jsonl
+experiments/runs/
+*.safetensors
+*.npz
+*.gguf
+lab/01_tokenizer/artifacts/
+
+# ---- personal study material: stays on this machine, never pushed ----
+# plan, learning checklist, lessons, task sheets, my answers, worked solutions
+PLAN.md
+LEARNING_PATH.md
+lab/**/*.md
+reference/

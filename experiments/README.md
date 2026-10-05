@@ -1,0 +1,3 @@
+- `configs/` — one YAML per run; `A0.yaml` is the Track A baseline, everything else diffs from it.
+- `runs/<run_id>/` — adapter weights, training log, eval outputs (gitignored).
+- `results.csv` — one row per finished run. Single source of truth for all plots.
